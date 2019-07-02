@@ -1,0 +1,204 @@
+-------------Summary----------------
+FDA retailers inputted: 8
+At least one match found for 8 FDA retailers
+Number of matches for each FDA retailer
+19 1
+21 1
+23 1
+33 1
+35 1
+44 1
+62 1
+90 1
+-------------FDA Store----------------
+IMPAQ_ID                                        19
+DBA Name                          TERRIBLES HERBST
+Address Line 1               1001 S CALIFORNIA AVE
+Address Line 2                                 NaN
+City                                        PARKER
+State                                           AZ
+Zip                                          85344
+Latitude                                   34.1501
+Longitude                                 -114.289
+Coordinates       POINT (-114.2885119 34.15008385)
+Name: 18, dtype: object
+-------------SOS candidate 340----------------
+id                                                               NaN
+Niel_id                                                       931057
+bizname                                              TERRIBLE HERBST
+address                     1001 S California Ave, Parker, AZ, 85344
+name_score                                                  0.995459
+common_flag                                                        0
+StreetName_score                                                   1
+StreetNamePostType_score                                           1
+AddressNumber_score                                                1
+ZipCode_score                                                      1
+Name: 340, dtype: object
+-------------FDA Store----------------
+IMPAQ_ID                                        21
+DBA Name                          LITTLE BROWN JUG
+Address Line 1                900 S CALIFORNIA AVE
+Address Line 2                                 NaN
+City                                        PARKER
+State                                           AZ
+Zip                                          85344
+Latitude                                   34.1513
+Longitude                                  -114.29
+Coordinates       POINT (-114.2898102 34.15131721)
+Name: 20, dtype: object
+-------------SOS candidate 10----------------
+id                                                              NaN
+Niel_id                                                      769408
+bizname                                            LITTLE BROWN JUG
+address                     900 S California Ave, Parker, AZ, 85344
+name_score                                                        1
+common_flag                                                       1
+StreetName_score                                                  1
+StreetNamePostType_score                                          1
+AddressNumber_score                                               1
+ZipCode_score                                                     1
+Name: 10, dtype: object
+-------------FDA Store----------------
+IMPAQ_ID                                       23
+DBA Name                                 CIRCLE K
+Address Line 1              1516 S CALIFORNIA AVE
+Address Line 2                                NaN
+City                                       PARKER
+State                                          AZ
+Zip                                         85344
+Latitude                                  34.1452
+Longitude                                -114.286
+Coordinates       POINT (-114.286023 34.14518762)
+Name: 22, dtype: object
+-------------SOS candidate 294----------------
+id                                                               NaN
+Niel_id                                                       302671
+bizname                                                     CIRCLE K
+address                     1516 S California Ave, Parker, AZ, 85344
+name_score                                                         1
+common_flag                                                        1
+StreetName_score                                                   1
+StreetNamePostType_score                                           1
+AddressNumber_score                                                1
+ZipCode_score                                                      1
+Name: 294, dtype: object
+-------------FDA Store----------------
+IMPAQ_ID                                            33
+DBA Name                                         SHELL
+Address Line 1                          4001 N PIMA RD
+Address Line 2                                     NaN
+City                                        SCOTTSDALE
+State                                               AZ
+Zip                                              85251
+Latitude                                       33.4944
+Longitude                                     -111.891
+Coordinates       POINT (-111.89118 33.49443400000001)
+Name: 32, dtype: object
+-------------SOS candidate 278----------------
+id                                                            NaN
+Niel_id                                                    630795
+bizname                                             PIIPASH SHELL
+address                     4001 N Pima Rd, Scottsdale, AZ, 85251
+name_score                                                   0.04
+common_flag                                                     1
+StreetName_score                                                1
+StreetNamePostType_score                                        1
+AddressNumber_score                                             1
+ZipCode_score                                                   1
+Name: 278, dtype: object
+-------------FDA Store----------------
+IMPAQ_ID                                       35
+DBA Name                   JR'S CONVENIENCE STORE
+Address Line 1                 1601 N BEELINE HWY
+Address Line 2                                NaN
+City                                   SCOTTSDALE
+State                                          AZ
+Zip                                         85256
+Latitude                                  33.4665
+Longitude                                -111.843
+Coordinates       POINT (-111.8432007 33.4665184)
+Name: 34, dtype: object
+-------------SOS candidate 286----------------
+id                                                                NaN
+Niel_id                                                        682394
+bizname                                          BEELINE HWY PIT STOP
+address                     1601 N Beeline Hwy, Scottsdale, AZ, 85256
+name_score                                                          0
+common_flag                                                         0
+StreetName_score                                                    1
+StreetNamePostType_score                                            1
+AddressNumber_score                                                 1
+ZipCode_score                                                       1
+Name: 286, dtype: object
+-------------FDA Store----------------
+IMPAQ_ID                                     44
+DBA Name                       BAJA GAS STATION
+Address Line 1       10180 N. FORT MCDOWELL RD.
+Address Line 2                              NaN
+City                              FORT MCDOWELL
+State                                        AZ
+Zip                                       85264
+Latitude                                33.5791
+Longitude                              -111.678
+Coordinates       POINT (-111.677533 33.579136)
+Name: 43, dtype: object
+-------------SOS candidate 308----------------
+id                                                                        NaN
+Niel_id                                                                689942
+bizname                                                      BAJA GAS STATION
+address                     10180 N Fort Mcdowell Rd, Fort McDowell, AZ, 8...
+name_score                                                                  1
+common_flag                                                                 1
+StreetName_score                                                            1
+StreetNamePostType_score                                                    1
+AddressNumber_score                                                         1
+ZipCode_score                                                               1
+Name: 308, dtype: object
+-------------FDA Store----------------
+IMPAQ_ID                                     62
+DBA Name                         CASINO ARIZONA
+Address Line 1                  524 N. 92ND ST.
+Address Line 2                              NaN
+City                                 SCOTTSDALE
+State                                        AZ
+Zip                                       85256
+Latitude                                33.4537
+Longitude                              -111.883
+Coordinates       POINT (-111.883321 33.453694)
+Name: 61, dtype: object
+-------------SOS candidate 960----------------
+id                                                           NaN
+Niel_id                                              5.24068e+06
+bizname                                           CASINO ARIZONA
+address                     524 N 92nd St, Scottsdale, AZ, 85256
+name_score                                                     1
+common_flag                                                    1
+StreetName_score                                               1
+StreetNamePostType_score                                       1
+AddressNumber_score                                            1
+ZipCode_score                                                  1
+Name: 960, dtype: object
+-------------FDA Store----------------
+IMPAQ_ID                                       90
+DBA Name          76 / SERVICE CENTER / FOOD MART
+Address Line 1                    185 W. PIMA ST.
+Address Line 2                                NaN
+City                                      SACATON
+State                                          AZ
+Zip                                         85147
+Latitude                                  33.0802
+Longitude                                -111.743
+Coordinates          POINT (-111.74252 33.080208)
+Name: 89, dtype: object
+-------------SOS candidate 191----------------
+id                                                        NaN
+Niel_id                                           1.99559e+06
+bizname                            GILA RIVER SERVICE STATION
+address                     185 W Pima St, Sacaton, AZ, 85147
+name_score                                         0.00289967
+common_flag                                                 1
+StreetName_score                                            1
+StreetNamePostType_score                                    1
+AddressNumber_score                                         1
+ZipCode_score                                               1
+Name: 191, dtype: object
