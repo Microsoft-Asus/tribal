@@ -112,7 +112,7 @@ import string
 from wordfreq import word_frequency
 import usaddress as usa
 # function to match address of DBA and registered biz
-def address_match_scoring(fda_row, sos_df, addr_split=True, full_addr=None, update=False):
+def address_match_scoring(fda_row, sos_df, addr_split=True, full_addr=None, update=False, id_var='id'):
     # fda_row - row from fda retailer data DataFrame
     # sos_df - df of possible matches for FDA retailer
     # addr_split - does address need to be concatenated or is there a full address
@@ -185,7 +185,7 @@ def address_match_scoring(fda_row, sos_df, addr_split=True, full_addr=None, upda
             else:
                 return(np.nan)
 
-        score_df = sos_df.loc[:, ['id']]
+        score_df = sos_df.loc[:, [id_var]]
         for i,j in zip(type_names, match_meth):
             sos_street = sos_split.loc[sos_split.apply(lambda x: i in x)]
             sos_street = sos_street.apply(lambda y: y[i])
@@ -199,7 +199,7 @@ def address_match_scoring(fda_row, sos_df, addr_split=True, full_addr=None, upda
             score_df[i +'_score'] = match_df.sum(axis=1)/match_df.count(axis=1)
 
     else:
-        score_df = sos_df.loc[:, ['id']]
+        score_df = sos_df.loc[:, [id_var]]
         for i in type_names:
             score_df[i + '_score']=-1
     return(score_df)
@@ -215,7 +215,7 @@ def match_selection(score_df, criteria, name_lvl=.95, addrnum_lvl=1,
         score_df['match']=0
         score_df.loc[(score_df['AddressNumber_score']>=addrnum_lvl) &
             (score_df['StreetName_score']>=strname_lvl) &
-            (score_df['StreetNamePostType_score']>=strtype_lvl) &
+            #(score_df['StreetNamePostType_score']>=strtype_lvl) &
             (score_df['ZipCode_score']>=zip_lvl), 'match'] =1
         score_df = score_df.loc[score_df['match']==1, :]
     if criteria=='basic name':
@@ -228,7 +228,7 @@ def match_selection(score_df, criteria, name_lvl=.95, addrnum_lvl=1,
         score_df.loc[(score_df['AddressNumber_score']>=addrnum_lvl) &
             (score_df['StreetName_score']>=strname_lvl) &
             (score_df['name_score']>=name_lvl) &
-            (score_df['StreetNamePostType_score']>=strtype_lvl) &
+            #(score_df['StreetNamePostType_score']>=strtype_lvl) &
             (score_df['ZipCode_score']>=zip_lvl),'match'] \
             = 1
         score_df = score_df.loc[score_df['match']==1, :]
