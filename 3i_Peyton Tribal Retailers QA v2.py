@@ -74,6 +74,16 @@ df.loc[1218, "Manual Validation Flag"] = "Can't validate"
 # Matched store has difference in Longitude
 df.loc[1325, "Manual Validation Flag"] = "Can't validate"
 
+df.loc[df["Manual Validation Flag"] == "Can't validate", "DBA Name_update"] = \
+    df.loc[df["Manual Validation Flag"] == "Can't validate", "DBA Name"]
+df.loc[df["Manual Validation Flag"] == "Can't validate", "Address Line 1_update"] = \
+    df.loc[df["Manual Validation Flag"] == "Can't validate", "Address Line 1"]
+df.loc[df["Manual Validation Flag"] == "Can't validate", "City_update"] = \
+    df.loc[df["Manual Validation Flag"] == "Can't validate", "City"]
+df.loc[df["Manual Validation Flag"] == "Can't validate", "State_update"] = \
+    df.loc[df["Manual Validation Flag"] == "Can't validate", "State"]
+df.loc[df["Manual Validation Flag"] == "Can't validate", "Zip_update"] = \
+    df.loc[df["Manual Validation Flag"] == "Can't validate", "Zip"]
 
 #df.loc[, "Manual Validation Flag"] = "Can't validate"
 

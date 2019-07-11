@@ -19,7 +19,7 @@ def main():
     # copy/paste of input spreadsheet
     ori_df = pd.read_excel('input/Public retail data_original.xlsx',dtype='str')
     ori_df['IMPAQ_ID'] = ori_df.index
-    ori_df.to_csv('output/1_Original_Data.csv', index = False)
+    ori_df.to_csv('documentation/output/1_Original_Data.csv', index = False)
 
     # ------------------------------------------------------------------------
     # 2. Revised Data - Change Log: Revised data with track changes
@@ -92,7 +92,7 @@ def main():
     log_df = log_df[cols_order]
 
     # reshape change log sheet to match format
-    change_df = pd.read_csv('step_4_work/output/full_retailer_list_w_owner_final.csv')
+    change_df = pd.read_csv('step_4_work/documentation/output/full_retailer_list_w_owner_final.csv')
     change_df = change_df.loc[change_df['ori_flg']=='From Original List',:]
 
     # standardize value labels
@@ -139,7 +139,7 @@ def main():
     # replace string "nan" with blank cells
     log_df = log_df.replace('nan','')
 
-    log_df.to_csv('output/2_Revised_Data_Change_Log.csv', index = False)
+    log_df.to_csv('documentation/output/2_Revised_Data_Change_Log.csv', index = False)
 
     # ------------------------------------------------------------------------
     # 3. Revised Data - Clean: Revised data without track changes
@@ -163,16 +163,16 @@ def main():
             clean_df.loc[clean_df[i].isna()==False, orig_col] = \
             clean_df.loc[clean_df[i].isna()==False,i]
         clean_df = clean_df.drop(i, axis=1)
-    clean_df.to_csv('output/3_Revised_Data_Clean.csv',index = False)
+    clean_df.to_csv('documentation/output/3_Revised_Data_Clean.csv',index = False)
 
     # ------------------------------------------------------------------------
     # 4. Sources and Documentation - Existing Retailers
     # ------------------------------------------------------------------------
     # load google places output
-    ggl_df = pd.read_csv('step_1_work/output/documentation/google_places_output.csv')
+    ggl_df = pd.read_csv('step_1_work/documentation/output/documentation/google_places_output.csv')
 
     # load manual verification log
-    verif_df = pd.read_csv('step_1_work/output/retailers_for_manual_verify_complete.csv')
+    verif_df = pd.read_csv('step_1_work/documentation/output/retailers_for_manual_verify_complete.csv')
 
     # create a documentation df
     doc_df = clean_df[['IMPAQ_ID','DBA Name','Miles to nearest tribal land']].merge(ori_df[['REI']], right_index=True, left_on='IMPAQ_ID',how='left')
@@ -233,7 +233,7 @@ def main():
     # read in links for ownership documentation
     # same code as in existing retailers one
     # manual links
-    manual_df = pd.read_csv('output/documentation_links.csv', dtype='str')
+    manual_df = pd.read_csv('documentation/output/documentation_links.csv', dtype='str')
     manual_df = manual_df.rename({
         'est_entity': 'Establishment Legal Entity',
         'est_agent': 'Registered Agent Name/Address',
@@ -274,13 +274,13 @@ def main():
             doc_type = docs[0]
         ext = _get_ext(doc_type)
         doc_df.loc[row.name, 'Establishment Legal Entity'] = '=HYPERLINK("' +  \
-            'output/Existing Retailers/' + str(row.REI) + \
+            'documentation/output/Existing Retailers/' + str(row.REI) + \
             '_SoS_'+ doc_type + ext + '",' + '"SoS ' + doc_type + '")'
         # agent details
         doc_type= 'Website_Record'
         ext = _get_ext(doc_type)
         doc_df.loc[row.name, 'Registered Agent Name/Address'] = '=HYPERLINK("' +  \
-            'output/Existing Retailers/' + str(row.REI) + \
+            'documentation/output/Existing Retailers/' + str(row.REI) + \
             '_SoS_'+ doc_type + ext + '",' + '"SoS ' + doc_type + '")'
         # other docs
         if 'Articles of Organization' in docs:
@@ -288,7 +288,7 @@ def main():
         if len(docs) != 1:
             ext = _get_ext(doc_type)
             doc_df.loc[row.name, 'Other Associated Document'] = '=HYPERLINK("' +  \
-                'output/Existing Retailers/' + str(row.REI) + \
+                'documentation/output/Existing Retailers/' + str(row.REI) + \
                 '_SoS_'+ doc_type + ext + '",' + '"SoS ' + doc_type + '")'
 
     # California
@@ -322,13 +322,13 @@ def main():
             doc_type = 'Website_Record'
         ext = _get_ext(doc_type)
         doc_df.loc[row.name, 'Establishment Legal Entity'] = '=HYPERLINK("' +  \
-            'output/Existing Retailers/' + str(row.REI) + \
+            'documentation/output/Existing Retailers/' + str(row.REI) + \
             '_SoS_'+ doc_type + ext + '",' + '"SoS ' + doc_type + '")'
         # agent details
         doc_type= 'Website_Record'
         ext = _get_ext(doc_type)
         doc_df.loc[row.name, 'Registered Agent Name/Address'] = '=HYPERLINK("' +  \
-            'output/Existing Retailers/' + str(row.REI) + \
+            'documentation/output/Existing Retailers/' + str(row.REI) + \
             '_SoS_'+ doc_type + ext + '",' + '"SoS ' + doc_type + '")'
         # other docs
         if 'SI-COMPLETE' in docs and 'REGISTRATION' in docs:
@@ -338,7 +338,7 @@ def main():
         if len(docs) != 1:
             ext = _get_ext(doc_type)
             doc_df.loc[row.name, 'Other Associated Document'] = '=HYPERLINK("' +  \
-                'output/Existing Retailers/' + str(row.REI) + \
+                'documentation/output/Existing Retailers/' + str(row.REI) + \
                 '_SoS_'+ doc_type + ext + '",' + '"SoS ' + doc_type + '")'
 
     # Oklahoma
@@ -353,13 +353,13 @@ def main():
     # note website record for all oklahoma matches
     for i,row in ok_df.loc[ok_df['SoS_record'].isna() == False].iterrows():
         doc_df.loc[row.name, 'Establishment Legal Entity'] = '=HYPERLINK("' +  \
-            'output/Existing Retailers/' + row.REI + \
+            'documentation/output/Existing Retailers/' + row.REI + \
             '_SoS_Website_Record.png", "SoS Website Record")'
         doc_df.loc[row.name, 'Registered Agent Name/Address'] = '=HYPERLINK("' +  \
-            'output/Existing Retailers/' + row.REI + \
+            'documentation/output/Existing Retailers/' + row.REI + \
             '_SoS_Website_Record.png", "SoS Website Record")'
         doc_df.loc[row.name, 'Other Associated Document'] = '=HYPERLINK("' +  \
-            'output/Existing Retailers/' + row.REI + \
+            'documentation/output/Existing Retailers/' + row.REI + \
             '_SoS_Website_Record.png", "SoS Website Record")'
 
     # Minnesota
@@ -373,13 +373,13 @@ def main():
     # note website record for all Minnesota matches
     for i,row in MN_df.loc[MN_df['SoS_record'].isna() == False].iterrows():
         doc_df.loc[row.name, 'Establishment Legal Entity'] = '=HYPERLINK("' +  \
-            'output/Existing Retailers/' + row.REI + \
+            'documentation/output/Existing Retailers/' + row.REI + \
             '_SoS_Website_Record.png", "SoS Website Record")'
         doc_df.loc[row.name, 'Registered Agent Name/Address'] = '=HYPERLINK("' +  \
-            'output/Existing Retailers/' + row.REI + \
+            'documentation/output/Existing Retailers/' + row.REI + \
             '_SoS_Website_Record.png", "SoS Website Record")'
         doc_df.loc[row.name, 'Other Associated Document'] = '=HYPERLINK("' +  \
-            'output/Existing Retailers/' + row.REI + \
+            'documentation/output/Existing Retailers/' + row.REI + \
             '_SoS_Website_Record.png", "SoS Website Record")'
 
     # Montana
@@ -393,13 +393,33 @@ def main():
     # note website record for all Montana matches
     for i,row in MT_df.loc[MT_df['SoS_record'].isna() == False].iterrows():
         doc_df.loc[row.name, 'Establishment Legal Entity'] = '=HYPERLINK("' +  \
-            'output/Existing Retailers/' + row.REI + \
+            'documentation/output/Existing Retailers/' + row.REI + \
             '_SoS_Website_Record.png", "SoS Website Record")'
         doc_df.loc[row.name, 'Registered Agent Name/Address'] = '=HYPERLINK("' +  \
-            'output/Existing Retailers/' + row.REI + \
+            'documentation/output/Existing Retailers/' + row.REI + \
             '_SoS_Website_Record.png", "SoS Website Record")'
         doc_df.loc[row.name, 'Other Associated Document'] = '=HYPERLINK("' +  \
-            'output/Existing Retailers/' + row.REI + \
+            'documentation/output/Existing Retailers/' + row.REI + \
+            '_SoS_Website_Record.png", "SoS Website Record")'
+
+    # New Mexico
+    # load output below
+    NM_df = pd.read_csv('step_4_work/NY/NY_ownership_results.csv', dtype='str')
+    NM_df['IMPAQ_ID'] = NM_df['IMPAQ_ID'].astype('int')
+    NM_df = NM_df.loc[NM_df['IMPAQ_ID'].isin(doc_df.IMPAQ_ID)].reset_index(drop=True)
+    # Add in REI
+    #NM_df = NM_df.merge(ori_df[['REI','IMPAQ_ID']],on='IMPAQ_ID',how='left')
+    NM_df.index = NM_df['IMPAQ_ID']
+    # note website record for all Montana matches
+    for i,row in NM_df.loc[NM_df['SoS_record'].isna() == False].iterrows():
+        doc_df.loc[row.name, 'Establishment Legal Entity'] = '=HYPERLINK("' +  \
+            'documentation/output/Existing Retailers/' + row.REI + \
+            '_SoS_Website_Record.png", "SoS Website Record")'
+        doc_df.loc[row.name, 'Registered Agent Name/Address'] = '=HYPERLINK("' +  \
+            'documentation/output/Existing Retailers/' + row.REI + \
+            '_SoS_Website_Record.png", "SoS Website Record")'
+        doc_df.loc[row.name, 'Other Associated Document'] = '=HYPERLINK("' +  \
+            'documentation/output/Existing Retailers/' + row.REI + \
             '_SoS_Website_Record.png", "SoS Website Record")'
 
     # New York
@@ -414,13 +434,13 @@ def main():
     # note website record for all Montana matches
     for i,row in NY_df.loc[NY_df['SoS_record'].isna() == False].iterrows():
         doc_df.loc[row.name, 'Establishment Legal Entity'] = '=HYPERLINK("' +  \
-            'output/Existing Retailers/' + row.REI + \
+            'documentation/output/Existing Retailers/' + row.REI + \
             '_SoS_Website_Record.png", "SoS Website Record")'
         doc_df.loc[row.name, 'Registered Agent Name/Address'] = '=HYPERLINK("' +  \
-            'output/Existing Retailers/' + row.REI + \
+            'documentation/output/Existing Retailers/' + row.REI + \
             '_SoS_Website_Record.png", "SoS Website Record")'
         doc_df.loc[row.name, 'Other Associated Document'] = '=HYPERLINK("' +  \
-            'output/Existing Retailers/' + row.REI + \
+            'documentation/output/Existing Retailers/' + row.REI + \
             '_SoS_Website_Record.png", "SoS Website Record")'
 
     # South Dakota
@@ -452,13 +472,13 @@ def main():
             doc_type = docs[0]
         ext = _get_ext(doc_type)
         doc_df.loc[row.name, 'Establishment Legal Entity'] = '=HYPERLINK("' +  \
-            'output/Existing Retailers/' + str(row.REI) + \
+            'documentation/output/Existing Retailers/' + str(row.REI) + \
             '_SoS_'+ doc_type + ext + '",' + '"SoS ' + doc_type + '")'
         # agent details
         doc_type= 'Website_Record'
         ext = _get_ext(doc_type)
         doc_df.loc[row.name, 'Registered Agent Name/Address'] = '=HYPERLINK("' +  \
-            'output/Existing Retailers/' + str(row.REI) + \
+            'documentation/output/Existing Retailers/' + str(row.REI) + \
             '_SoS_'+ doc_type + ext + '",' + '"SoS ' + doc_type + '")'
         # other docs
         # make sure its a different doc
@@ -467,7 +487,7 @@ def main():
             doc_type = temp_docs[0]
             ext = _get_ext(doc_type)
             doc_df.loc[row.name, 'Other Associated Document'] = '=HYPERLINK("' +  \
-                'output/Existing Retailers/' + str(row.REI) + \
+                'documentation/output/Existing Retailers/' + str(row.REI) + \
                 '_SoS_'+ doc_type + ext + '",' + '"SoS ' + doc_type + '")'
 
 
@@ -502,13 +522,13 @@ def main():
             doc_type = docs[0]
         ext = _get_ext(doc_type)
         doc_df.loc[row.name, 'Establishment Legal Entity'] = '=HYPERLINK("' +  \
-            'output/Existing Retailers/' + str(row.REI) + \
+            'documentation/output/Existing Retailers/' + str(row.REI) + \
             '_SoS_'+ doc_type + ext + '",' + '"SoS ' + doc_type + '")'
         # agent details
         doc_type= 'Website_Record'
         ext = _get_ext(doc_type)
         doc_df.loc[row.name, 'Registered Agent Name/Address'] = '=HYPERLINK("' +  \
-            'output/Existing Retailers/' + str(row.REI) + \
+            'documentation/output/Existing Retailers/' + str(row.REI) + \
             '_SoS_'+ doc_type + ext + '",' + '"SoS ' + doc_type + '")'
         # other docs
         # make sure its a different doc
@@ -517,7 +537,7 @@ def main():
             doc_type = temp_docs[0]
             ext = _get_ext(doc_type)
             doc_df.loc[row.name, 'Other Associated Document'] = '=HYPERLINK("' +  \
-                'output/Existing Retailers/' + str(row.REI) + \
+                'documentation/output/Existing Retailers/' + str(row.REI) + \
                 '_SoS_'+ doc_type + ext + '",' + '"SoS ' + doc_type + '")'
 
 
@@ -534,7 +554,7 @@ def main():
         'Other Associated Document'
     ]
     final_df = doc_df[final_cols]
-    writer = pd.ExcelWriter('output/4_Existing_Sources_Documentation.xlsx', engine='xlsxwriter')
+    writer = pd.ExcelWriter('documentation/output/4_Existing_Sources_Documentation.xlsx', engine='xlsxwriter')
     final_df.to_excel(writer,index = False)
 
     # add some formatting to excel workbook
@@ -566,7 +586,7 @@ def main():
     # ------------------------------------------------------------------------
     # 5. New Retailers
     # ------------------------------------------------------------------------
-    new_df = pd.read_csv('step_4_work/output/full_retailer_list_w_owner_final.csv')
+    new_df = pd.read_csv('step_4_work/documentation/output/full_retailer_list_w_owner_final.csv')
     new_df = new_df.loc[new_df['ori_flg']!='From Original List',:]
 
     # align column names with existing retailer column names
@@ -594,12 +614,12 @@ def main():
 
     new_df = new_df[[i for i in clean_df.columns if i != 'EST_COMMENTS']]
 
-    new_df.to_csv('output/5_New_Retailers.csv',index = False)
+    new_df.to_csv('documentation/output/5_New_Retailers.csv',index = False)
 
     #------------------------------------------------------------------------------
     # 6. Raw Nielsen Supporting Data for New Retailers
     #------------------------------------------------------------------------------
-    niel_df = pd.read_csv('step_4_work/output/full_retailer_list_w_owner_final.csv')
+    niel_df = pd.read_csv('step_4_work/documentation/output/full_retailer_list_w_owner_final.csv')
     niel_df = niel_df.loc[niel_df['ori_flg']!='From Original List',:]
     niel_ids = niel_df.Niel_id.astype('int').tolist()
 
@@ -610,7 +630,7 @@ def main():
     raw_niel = niel_df[['IMPAQ_ID','Niel_id']].merge(raw_niel, how='inner', left_on='Niel_id', right_on='Nielsen ID')
     raw_niel = raw_niel.drop('Niel_id', axis=1)
     raw_niel.index = raw_niel['IMPAQ_ID']
-    raw_niel.to_csv('output/6_Nielsen_Supporting_Data.csv',index=False)
+    raw_niel.to_csv('documentation/output/6_Nielsen_Supporting_Data.csv',index=False)
 
     # ------------------------------------------------------------------------
     # 7. Sources and Documentation - New Retailers
@@ -649,7 +669,7 @@ def main():
     # read in links for ownership documentation
     # same code as in existing retailers one
     # manual links
-    manual_df = pd.read_csv('output/documentation_links.csv', dtype='str')
+    manual_df = pd.read_csv('documentation/output/documentation_links.csv', dtype='str')
     manual_df = manual_df.rename({
         'est_entity': 'Establishment Legal Entity',
         'est_agent': 'Registered Agent Name/Address',
@@ -689,13 +709,13 @@ def main():
             doc_type = docs[0]
         ext = _get_ext(doc_type)
         doc_df.loc[row.name, 'Establishment Legal Entity'] = '=HYPERLINK("' +  \
-            'output/New Retailers/IMPAQID_' + str(row.IMPAQ_ID) + \
+            'documentation/output/New Retailers/IMPAQID_' + str(row.IMPAQ_ID) + \
             '_SoS_'+ doc_type + ext + '",' + '"SoS ' + doc_type + '")'
         # agent details
         doc_type= 'Website_Record'
         ext = _get_ext(doc_type)
         doc_df.loc[row.name, 'Registered Agent Name/Address'] = '=HYPERLINK("' +  \
-            'output/New Retailers/IMPAQID_' + str(row.IMPAQ_ID) + \
+            'documentation/output/New Retailers/IMPAQID_' + str(row.IMPAQ_ID) + \
             '_SoS_'+ doc_type + ext + '",' + '"SoS ' + doc_type + '")'
         # other docs
         if 'Articles of Organization' in docs:
@@ -703,7 +723,7 @@ def main():
         if len(docs) != 1:
             ext = _get_ext(doc_type)
             doc_df.loc[row.name, 'Other Associated Document'] = '=HYPERLINK("' +  \
-                'output/New Retailers/IMPAQID_' + str(row.IMPAQ_ID) + \
+                'documentation/output/New Retailers/IMPAQID_' + str(row.IMPAQ_ID) + \
                 '_SoS_'+ doc_type + ext + '",' + '"SoS ' + doc_type + '")'
 
     # California
@@ -734,13 +754,13 @@ def main():
             doc_type = docs[0]
         ext = _get_ext(doc_type)
         doc_df.loc[row.name, 'Establishment Legal Entity'] = '=HYPERLINK("' +  \
-            'output/New Retailers/IMPAQID_' + str(row.IMPAQ_ID) + \
+            'documentation/output/New Retailers/IMPAQID_' + str(row.IMPAQ_ID) + \
             '_SoS_'+ doc_type + ext + '",' + '"SoS ' + doc_type + '")'
         # agent details
         doc_type= 'Website_Record'
         ext = _get_ext(doc_type)
         doc_df.loc[row.name, 'Registered Agent Name/Address'] = '=HYPERLINK("' +  \
-            'output/New Retailers/IMPAQID_' + str(row.IMPAQ_ID) + \
+            'documentation/output/New Retailers/IMPAQID_' + str(row.IMPAQ_ID) + \
             '_SoS_'+ doc_type + ext + '",' + '"SoS ' + doc_type + '")'
         # other docs
         if 'SI-COMPLETE' in docs and 'REGISTRATION' in docs:
@@ -750,7 +770,7 @@ def main():
         if len(docs) != 1:
             ext = _get_ext(doc_type)
             doc_df.loc[row.name, 'Other Associated Document'] = '=HYPERLINK("' +  \
-                'output/New Retailers/IMPAQID_' + str(row.IMPAQ_ID) + \
+                'documentation/output/New Retailers/IMPAQID_' + str(row.IMPAQ_ID) + \
                 '_SoS_'+ doc_type + ext + '",' + '"SoS ' + doc_type + '")'
 
     # Minnesota
@@ -764,13 +784,13 @@ def main():
     # note website record for all Minnesota matches
     for i,row in MN_df.loc[MN_df['SoS_record'].isna() == False].iterrows():
         doc_df.loc[row.name, 'Establishment Legal Entity'] = '=HYPERLINK("' +  \
-            'output/New Retailers/IMPAQID_' + str(row.IMPAQ_ID) + \
+            'documentation/output/New Retailers/IMPAQID_' + str(row.IMPAQ_ID) + \
             '_SoS_Website_Record.png", "SoS Website Record")'
         doc_df.loc[row.name, 'Registered Agent Name/Address'] = '=HYPERLINK("' +  \
-            'output/New Retailers/IMPAQID_' + str(row.IMPAQ_ID) + \
+            'documentation/output/New Retailers/IMPAQID_' + str(row.IMPAQ_ID) + \
             '_SoS_Website_Record.png", "SoS Website Record")'
         doc_df.loc[row.name, 'Other Associated Document'] = '=HYPERLINK("' +  \
-            'output/New Retailers/IMPAQID_' + str(row.IMPAQ_ID) + \
+            'documentation/output/New Retailers/IMPAQID_' + str(row.IMPAQ_ID) + \
             '_SoS_Website_Record.png", "SoS Website Record")'
 
     # Montana
@@ -784,13 +804,33 @@ def main():
     # note website record for all Montana matches
     for i,row in MT_df.loc[MT_df['SoS_record'].isna() == False].iterrows():
         doc_df.loc[row.name, 'Establishment Legal Entity'] = '=HYPERLINK("' +  \
-            'output/New Retailers/IMPAQID_' + str(row.IMPAQ_ID) + \
+            'documentation/output/New Retailers/IMPAQID_' + str(row.IMPAQ_ID) + \
             '_SoS_Website_Record.png", "SoS Website Record")'
         doc_df.loc[row.name, 'Registered Agent Name/Address'] = '=HYPERLINK("' +  \
-            'output/New Retailers/IMPAQID_' + str(row.IMPAQ_ID) + \
+            'documentation/output/New Retailers/IMPAQID_' + str(row.IMPAQ_ID) + \
             '_SoS_Website_Record.png", "SoS Website Record")'
         doc_df.loc[row.name, 'Other Associated Document'] = '=HYPERLINK("' +  \
-            'output/New Retailers/IMPAQID_' + str(row.IMPAQ_ID) + \
+            'documentation/output/New Retailers/IMPAQID_' + str(row.IMPAQ_ID) + \
+            '_SoS_Website_Record.png", "SoS Website Record")'
+
+    # New Mexico
+    # load output below
+    NM_df = pd.read_csv('step_4_work/NY/NY_ownership_results.csv', dtype='str')
+    NM_df['IMPAQ_ID'] = NM_df['IMPAQ_ID'].astype('int')
+    NM_df = NM_df.loc[NM_df['IMPAQ_ID'].isin(doc_df.IMPAQ_ID)].reset_index(drop=True)
+    # Add in REI
+    #NM_df = NM_df.merge(ori_df[['REI','IMPAQ_ID']],on='IMPAQ_ID',how='left')
+    NM_df.index = NM_df['IMPAQ_ID']
+    # note website record for all Montana matches
+    for i,row in NM_df.loc[NM_df['SoS_record'].isna() == False].iterrows():
+        doc_df.loc[row.name, 'Establishment Legal Entity'] = '=HYPERLINK("' +  \
+            'documentation/output/New Retailers/IMPAQID_' + str(row.IMPAQ_ID) + \
+            '_SoS_Website_Record.png", "SoS Website Record")'
+        doc_df.loc[row.name, 'Registered Agent Name/Address'] = '=HYPERLINK("' +  \
+            'documentation/output/New Retailers/IMPAQID_' + str(row.IMPAQ_ID) + \
+            '_SoS_Website_Record.png", "SoS Website Record")'
+        doc_df.loc[row.name, 'Other Associated Document'] = '=HYPERLINK("' +  \
+            'documentation/output/New Retailers/IMPAQID_' + str(row.IMPAQ_ID) + \
             '_SoS_Website_Record.png", "SoS Website Record")'
 
     # New York
@@ -805,13 +845,13 @@ def main():
     # note website record for all Montana matches
     for i,row in NY_df.loc[NY_df['SoS_record'].isna() == False].iterrows():
         doc_df.loc[row.name, 'Establishment Legal Entity'] = '=HYPERLINK("' +  \
-            'output/New Retailers/IMPAQID_' + str(row.IMPAQ_ID) + \
+            'documentation/output/New Retailers/IMPAQID_' + str(row.IMPAQ_ID) + \
             '_SoS_Website_Record.png", "SoS Website Record")'
         doc_df.loc[row.name, 'Registered Agent Name/Address'] = '=HYPERLINK("' +  \
-            'output/New Retailers/IMPAQID_' + str(row.IMPAQ_ID) + \
+            'documentation/output/New Retailers/IMPAQID_' + str(row.IMPAQ_ID) + \
             '_SoS_Website_Record.png", "SoS Website Record")'
         doc_df.loc[row.name, 'Other Associated Document'] = '=HYPERLINK("' +  \
-            'output/New Retailers/IMPAQID_' + str(row.IMPAQ_ID) + \
+            'documentation/output/New Retailers/IMPAQID_' + str(row.IMPAQ_ID) + \
             '_SoS_Website_Record.png", "SoS Website Record")'
 
     # Oklahoma
@@ -824,13 +864,13 @@ def main():
     # note website record for all oklahoma matches
     for i,row in ok_df.loc[ok_df['SoS_record'].isna() == False].iterrows():
         doc_df.loc[row.name, 'Establishment Legal Entity'] = '=HYPERLINK("' +  \
-            'output/New Retailers/IMPAQID_' + str(row.IMPAQ_ID) + \
+            'documentation/output/New Retailers/IMPAQID_' + str(row.IMPAQ_ID) + \
             '_SoS_Website_Record.png", "SoS Website Record")'
         doc_df.loc[row.name, 'Registered Agent Name/Address'] = '=HYPERLINK("' +  \
-            'output/New Retailers/IMPAQID_' + str(row.IMPAQ_ID) + \
+            'documentation/output/New Retailers/IMPAQID_' + str(row.IMPAQ_ID) + \
             '_SoS_Website_Record.png", "SoS Website Record")'
         doc_df.loc[row.name, 'Other Associated Document'] = '=HYPERLINK("' +  \
-            'output/New Retailers/IMPAQID_' + str(row.IMPAQ_ID) + \
+            'documentation/output/New Retailers/IMPAQID_' + str(row.IMPAQ_ID) + \
             '_SoS_Website_Record.png", "SoS Website Record")'
 
     # South Dakota
@@ -862,13 +902,13 @@ def main():
             doc_type = docs[0]
         ext = _get_ext(doc_type)
         doc_df.loc[row.name, 'Establishment Legal Entity'] = '=HYPERLINK("' +  \
-            'output/New Retailers/IMPAQID_' + str(row.IMPAQ_ID) + \
+            'documentation/output/New Retailers/IMPAQID_' + str(row.IMPAQ_ID) + \
             '_SoS_'+ doc_type + ext + '",' + '"SoS ' + doc_type + '")'
         # agent details
         doc_type= 'Website_Record'
         ext = _get_ext(doc_type)
         doc_df.loc[row.name, 'Registered Agent Name/Address'] = '=HYPERLINK("' +  \
-            'output/New Retailers/IMPAQID_' + str(row.IMPAQ_ID) + \
+            'documentation/output/New Retailers/IMPAQID_' + str(row.IMPAQ_ID) + \
             '_SoS_'+ doc_type + ext + '",' + '"SoS ' + doc_type + '")'
         # other docs
         # make sure its a different doc
@@ -877,7 +917,7 @@ def main():
             doc_type = temp_docs[0]
             ext = _get_ext(doc_type)
             doc_df.loc[row.name, 'Other Associated Document'] = '=HYPERLINK("' +  \
-                'output/New Retailers/IMPAQID_' + str(row.IMPAQ_ID) + \
+                'documentation/output/New Retailers/IMPAQID_' + str(row.IMPAQ_ID) + \
                 '_SoS_'+ doc_type + ext + '",' + '"SoS ' + doc_type + '")'
 
     # Washington
@@ -910,13 +950,13 @@ def main():
             doc_type = docs[0]
         ext = _get_ext(doc_type)
         doc_df.loc[row.name, 'Establishment Legal Entity'] = '=HYPERLINK("' +  \
-            'output/New Retailers/IMPAQID_' + str(row.IMPAQ_ID) + \
+            'documentation/output/New Retailers/IMPAQID_' + str(row.IMPAQ_ID) + \
             '_SoS_'+ doc_type + ext + '",' + '"SoS ' + doc_type + '")'
         # agent details
         doc_type= 'Website_Record'
         ext = _get_ext(doc_type)
         doc_df.loc[row.name, 'Registered Agent Name/Address'] = '=HYPERLINK("' +  \
-            'output/New Retailers/IMPAQID_' + str(row.IMPAQ_ID) + \
+            'documentation/output/New Retailers/IMPAQID_' + str(row.IMPAQ_ID) + \
             '_SoS_'+ doc_type + ext + '",' + '"SoS ' + doc_type + '")'
         # other docs
         # make sure its a different doc
@@ -925,7 +965,7 @@ def main():
             doc_type = temp_docs[0]
             ext = _get_ext(doc_type)
             doc_df.loc[row.name, 'Other Associated Document'] = '=HYPERLINK("' +  \
-                'output/New Retailers/IMPAQID_' + str(row.IMPAQ_ID) + \
+                'documentation/output/New Retailers/IMPAQID_' + str(row.IMPAQ_ID) + \
                 '_SoS_'+ doc_type + ext + '",' + '"SoS ' + doc_type + '")'
 
     # column list to follow
@@ -941,7 +981,7 @@ def main():
         'Other Associated Document'
     ]
     final_df = doc_df[final_cols]
-    writer = pd.ExcelWriter('output/7_New_Sources_Documentation.xlsx', engine='xlsxwriter')
+    writer = pd.ExcelWriter('documentation/output/7_New_Sources_Documentation.xlsx', engine='xlsxwriter')
     final_df.to_excel(writer,index = False)
 
     # add some formatting to excel workbook

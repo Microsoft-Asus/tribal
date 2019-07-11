@@ -41,6 +41,16 @@ ok_df = ok_df[['SoS_record','entity','agent_name', 'agent_address', 'agent_city'
 ok_df['Latest Year of Ownership Docs'] = 'Unknown'
 full_df.update(ok_df)
 
+# Michigan Results
+# only website screenshots
+MI_df = pd.read_csv("C:/Users/lpatterson/AnacondaProjects/Tribal_Master/step_4_work/MI/MI_FDA_matches.csv",dtype='str')
+MI_df.index = MI_df.IMPAQ_ID.astype('int')
+MI_df = MI_df[['SoS_record','entity','agent_name', 'agent_address', 'agent_city',
+    'agent_state', 'agent_zip','doc_date']]
+MI_df = MI_df.rename({'doc_date':'Latest Year of Ownership Docs'}, axis=1)
+full_df.update(MI_df)
+
+
 # Minnesota Results
 # only website screenshots
 MN_df = pd.read_csv("C:/Users/lpatterson/AnacondaProjects/Tribal_Master/step_4_work/MN/MN_FDA_matches.csv",dtype='str')
@@ -61,7 +71,16 @@ MT_df.index = MT_df.IMPAQ_ID.astype('int')
 MT_df = MT_df[['SoS_record','entity','agent_name', 'agent_address', 'agent_city',
     'agent_state', 'agent_zip','doc_date']]
 MT_df = MT_df.rename({'doc_date':'Latest Year of Ownership Docs'}, axis=1)
-full_df.update(MT_df)
+full_df.update(MT_df.drop_duplicates())
+
+# New Mexico Results
+NM_df = pd.read_csv("C:/Users/lpatterson/AnacondaProjects/Tribal_Master/step_4_work/NM/NM_FDA_matches.csv",dtype='str')
+NM_df.index = NM_df.IMPAQ_ID.astype('int')
+NM_df = NM_df[['SoS_record','entity','agent_name', 'agent_address', 'agent_city',
+    'agent_state', 'agent_zip']]
+# can't identify year biz ownership last updated for
+MN_df['Latest Year of Ownership Docs'] = 'Unknown'
+full_df.update(NM_df)
 
 # NY Results
 # TODO: NY documents need to be manually extracted
