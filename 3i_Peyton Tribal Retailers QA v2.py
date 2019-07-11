@@ -39,7 +39,7 @@ df.loc[38, "Manual Validation Flag"] = "Can't validate"
 df.loc[54, "Manual Validation Flag"] = "Can't validate"
 # Matched store has difference in Latitude, removing match
 df.loc[59, "Manual Validation Flag"] = "Can't validate"
-# Matched store has difference in Latitude and Longitude, removing match 
+# Matched store has difference in Latitude and Longitude, removing match
 df.loc[65, "Manual Validation Flag"] = "Can't validate"
 # Matched store has difference in Latitude and Longitude, removing match
 df.loc[104, "Manual Validation Flag"] = "Can't validate"
@@ -49,11 +49,11 @@ df.loc[128, "Manual Validation Flag"] = "Can't validate"
 df.loc[132, "Manual Validation Flag"] = "Can't validate"
 # Matched store has difference in Longitude and Latitude
 df.loc[222, "Manual Validation Flag"] = "Can't validate"
-# Can't find the original DBA_Name when using the original address 
+# Can't find the original DBA_Name when using the original address
 df.loc[341, "Manual Validation Flag"] = "Can't validate"
 # Original and _update store are both their own seperate stores
 df.loc[351, "Manual Validation Flag"] = "Can't validate"
-# matched store is out of state, removing match 
+# matched store is out of state, removing match
 df.loc[379, "Manual Validation Flag"] = "Can't validate"
 # Difference in Longitude
 df.loc[498, "Manual Validation Flag"] = "Can't validate"
@@ -61,17 +61,17 @@ df.loc[498, "Manual Validation Flag"] = "Can't validate"
 df.loc[517 , "Manual Validation Flag"] = "Can't validate"
 # matched store is out of state, removing match
 df.loc[751, "Manual Validation Flag"] = "Can't validate"
-## Matched store has difference in Latitude 
+## Matched store has difference in Latitude
 df.loc[989, "Manual Validation Flag"] = "Can't validate"
-# Matched store has difference in Longitude and Latitude 
+# Matched store has difference in Longitude and Latitude
 df.loc[1001, "Manual Validation Flag"] = "Can't validate"
-# Matched store has difference in Longitude 
+# Matched store has difference in Longitude
 df.loc[1047, "Manual Validation Flag"] = "Can't validate"
 # Matched store is located far from original store location
 df.loc[1103, "Manual Validation Flag"] = "Can't validate"
-# Matched store is located far from original store location 
+# Matched store is located far from original store location
 df.loc[1218, "Manual Validation Flag"] = "Can't validate"
-# Matched store has difference in Longitude  
+# Matched store has difference in Longitude
 df.loc[1325, "Manual Validation Flag"] = "Can't validate"
 
 
@@ -140,5 +140,10 @@ df.loc[1325, "Manual Validation Flag"] = "Can't validate"
 
 df.to_csv('step_3_work/output/full_retailer_list.csv')
 
+# create lexis file
+df = df[['IMPAQ_ID','DBA Name_update','Address Line 1_update','City_update',
+    'State_update','Zip_update']]
+
+df.to_csv('step_3_work/output/full_retailer_list_for_lexis.csv')
 
 # In[ ]:
