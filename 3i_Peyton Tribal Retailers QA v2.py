@@ -16,9 +16,8 @@ impaq_ids = [13,54,379,569,751,1586]
 update_rows = df['IMPAQ_ID'].apply(lambda x: x in impaq_ids)
 change_cols = [i for i in df.columns if '_changes' in i]
 update_cols = [i for i in df.columns if '_update' in i]
-other_cols = ['Coordinates', 'On Tribe Land', 'Miles to Nearest Tribe',
-    'Assoc Tribe', 'Assoc Res', 'Nearest Tribe', 'Nearest Res','biz_status']
-
+other_cols = ['Coordinates', 'Miles to Nearest Tribe',
+    'Assoc Tribe', 'Assoc Res', 'Nearest Tribe', 'Nearest Res']
 df.loc[update_rows , change_cols] = "Can't validate"
 for i in update_cols:
     orig_var = i.replace('_update','')
@@ -84,69 +83,6 @@ df.loc[df["Manual Validation Flag"] == "Can't validate", "State_update"] = \
     df.loc[df["Manual Validation Flag"] == "Can't validate", "State"]
 df.loc[df["Manual Validation Flag"] == "Can't validate", "Zip_update"] = \
     df.loc[df["Manual Validation Flag"] == "Can't validate", "Zip"]
-
-#df.loc[, "Manual Validation Flag"] = "Can't validate"
-
-# df.loc[13, "DBA Name_update"] = "Can't validate"
-# df.loc[13, "Address Line1_update"] = "Can't validate"
-# df.loc[13, "Latitude_update"] = "Can't validate"
-# df.loc[13, "Longitude_update"] = "Can't validate"
-# df.loc[13, "biz_status"] = "Can't validate"
-#
-# df.loc[38, "DBA Name_update"] = "Can't validate"
-# df.loc[38, "Address Line1_update"] = "Can't validate"
-# df.loc[38, "Latitude_update"] = "Can't validate"
-# df.loc[38, "Longitude_update"] = "Can't validate"
-# df.loc[38, "biz_status"] = "Can't validate"
-#
-# df.loc[54, "DBA Name_update"] = "Can't validate"
-# df.loc[54, "Address Line1_update"] = "Can't validate"
-# df.loc[54, "Latitude_update"] = "Can't validate"
-# df.loc[54, "Longitude_update"] = "Can't validate"
-# df.loc[54, "biz_status"] = "Can't validate"
-#
-# df.loc[59, "DBA Name_update"] = "Can't validate"
-# df.loc[59, "Address Line1_update"] = "Can't validate"
-# df.loc[59, "Latitude_update"] = "Can't validate"
-# df.loc[59, "Longitude_update"] = "Can't validate"
-# df.loc[59, "biz_status"] = "Can't validate"
-#
-# df.loc[65, "DBA Name_update"] = "Can't validate"
-# df.loc[65, "Address Line1_update"] = "Can't validate"
-# df.loc[65, "Latitude_update"] = "Can't validate"
-# df.loc[65, "Longitude_update"] = "Can't validate"
-# df.loc[65, "biz_status"] = "Can't validate"
-#
-# df.loc[104, "DBA Name_update"] = "Can't validate"
-# df.loc[104, "Address Line1_update"] = "Can't validate"
-# df.loc[104, "Latitude_update"] = "Can't validate"
-# df.loc[104, "Longitude_update"] = "Can't validate"
-# df.loc[104, "biz_status"] = "Can't validate"
-#
-# df.loc[128, "DBA Name_update"] = "Can't validate"
-# df.loc[128, "Address Line1_update"] = "Can't validate"
-# df.loc[128, "Latitude_update"] = "Can't validate"
-# df.loc[128, "Longitude_update"] = "Can't validate"
-# df.loc[128, "biz_status"] = "Can't validate"
-#
-# df.loc[132, "DBA Name_update"] = "Can't validate"
-# df.loc[132, "Address Line1_update"] = "Can't validate"
-# df.loc[132, "Latitude_update"] = "Can't validate"
-# df.loc[132, "Longitude_update"] = "Can't validate"
-# df.loc[132, "biz_status"] = "Can't validate"
-#
-# df.loc[172, "DBA Name_update"] = "Can't validate"
-# df.loc[172, "Address Line1_update"] = "Can't validate"
-# df.loc[172, "Latitude_update"] = "Can't validate"
-# df.loc[172, "Longitude_update"] = "Can't validate"
-# df.loc[172, "biz_status"] = "Can't validate"
-#
-# df.loc[195, "DBA Name_update"] = "Can't validate"
-# df.loc[195, "Address Line1_update"] = "Can't validate"
-# df.loc[195, "Latitude_update"] = "Can't validate"
-# df.loc[195, "Longitude_update"] = "Can't validate"
-# df.loc[195, "biz_status"] = "Can't validate"
-
 
 df.to_csv('step_3_work/output/full_retailer_list.csv')
 

@@ -223,10 +223,10 @@ df.loc[id, 'agent_city'] = 'Neosho'
 df.loc[id, 'agent_state'] = 'MO'
 df.loc[id, 'agent_zip'] = '64850'
 doc_df.loc[id, 'est_entity'] = '=HYPERLINK("' +  \
-    'documentation/Existing Retailers/MO490778_' +  \
+    'documentation/Existing Retailers/MO490778' +  \
     '_SoS_Articles_of_Incorp.pdf", "SoS Articles of Incorporation")'
 doc_df.loc[id, 'est_agent'] = '=HYPERLINK("' +  \
-    'documentation/Existing Retailers/MO490778_' +\
+    'documentation/Existing Retailers/MO490778' +\
     '_SoS_Website_Record.docx", "SoS Website Record")'
 doc_df.loc[id, 'est_other'] = 'None'
 doc_df.loc[id, 'est_latest_update'] = '2011'
@@ -550,13 +550,13 @@ df.loc[id, 'agent_city'] = 'SLOAN'
 df.loc[id, 'agent_state'] = 'IA'
 df.loc[id, 'agent_zip'] = '51055'
 doc_df.loc[id, 'est_entity'] = '=HYPERLINK("' +  \
-    'documentation/Existing Retailers/IA319170_' +  \
+    'documentation/Existing Retailers/IA319170' +  \
     '_SoS_Website_Record.png", "SoS Website Record")'
 doc_df.loc[id, 'est_agent'] = '=HYPERLINK("' +  \
-    'documentation/Existing Retailers/IA319170_' +\
+    'documentation/Existing Retailers/IA319170' +\
     '_SoS_Website_Record.png", "SoS Website Record")'
 doc_df.loc[id, 'est_other'] = '=HYPERLINK("' +  \
-    'documentation/Existing Retailers/IA319170_' +\
+    'documentation/Existing Retailers/IA319170' +\
     '_SoS_Annual_Report.tif", "SoS Annual Report")'
 doc_df.loc[id, 'est_latest_update'] = '1994'
 
@@ -568,13 +568,13 @@ df.loc[id, 'agent_city'] = 'SLOAN'
 df.loc[id, 'agent_state'] = 'IA'
 df.loc[id, 'agent_zip'] = '51055'
 doc_df.loc[id, 'est_entity'] = '=HYPERLINK("' +  \
-    'documentation/Existing Retailers/IA319170_' +  \
+    'documentation/Existing Retailers/IA319170' +  \
     '_SoS_Website_Record.png", "SoS Website Record")'
 doc_df.loc[id, 'est_agent'] = '=HYPERLINK("' +  \
-    'documentation/Existing Retailers/IA319170_' +\
+    'documentation/Existing Retailers/IA319170' +\
     '_SoS_Website_Record.png", "SoS Website Record")'
 doc_df.loc[id, 'est_other'] = '=HYPERLINK("' +  \
-    'documentation/Existing Retailers/IA319170_' +\
+    'documentation/Existing Retailers/IA319170' +\
     '_SoS_Annual_Report.tif", "SoS Annual Report")'
 doc_df.loc[id, 'est_latest_update'] = '1994'
 
@@ -646,13 +646,13 @@ df.loc[id, 'agent_city'] = 'CLEAR LAKE'
 df.loc[id, 'agent_state'] = 'IA'
 df.loc[id, 'agent_zip'] = '51510'
 doc_df.loc[id, 'est_entity'] = '=HYPERLINK("' +  \
-    'documentation/Existing Retailers/IA746688_' +  \
+    'documentation/Existing Retailers/IA746688' +  \
     '_SoS_Website_Record.png", "SoS Website Record")'
 doc_df.loc[id, 'est_agent'] = '=HYPERLINK("' +  \
-    'documentation/Existing Retailers/IA746688_' +\
+    'documentation/Existing Retailers/IA746688' +\
     '_SoS_Website_Record.png", "SoS Website Record")'
 doc_df.loc[id, 'est_other'] = '=HYPERLINK("' +  \
-    'documentation/Existing Retailers/IA746688_' +\
+    'documentation/Existing Retailers/IA746688' +\
     '_SoS_Certificate_of_Authority.tif", "SoS Certificate of Authority")'
 doc_df.loc[id, 'est_latest_update'] = '2010'
 
@@ -664,13 +664,13 @@ df.loc[id, 'agent_city'] = 'CLEAR LAKE'
 df.loc[id, 'agent_state'] = 'IA'
 df.loc[id, 'agent_zip'] = '51510'
 doc_df.loc[id, 'est_entity'] = '=HYPERLINK("' +  \
-    'documentation/Existing Retailers/IA757691_' +  \
+    'documentation/Existing Retailers/IA757691' +  \
     '_SoS_Website_Record.png", "SoS Website Record")'
 doc_df.loc[id, 'est_agent'] = '=HYPERLINK("' +  \
-    'documentation/Existing Retailers/IA757691_' +\
+    'documentation/Existing Retailers/IA757691' +\
     '_SoS_Website_Record.png", "SoS Website Record")'
 doc_df.loc[id, 'est_other'] = '=HYPERLINK("' +  \
-    'documentation/Existing Retailers/IA757691_' +\
+    'documentation/Existing Retailers/IA757691' +\
     '_SoS_Certificate_of_Authority.tif", "SoS Certificate of Authority")'
 doc_df.loc[id, 'est_latest_update'] = '2010'
 
@@ -733,5 +733,5 @@ doc_df.loc[id, 'est_latest_update'] = 'Not Found'
 # doc_df.loc[id, 'est_other'] = 'Not Found'
 # doc_df.loc[id, 'est_latest_update'] = 'Not Found'
 
-df.to_csv('step_4_work/full_retailer_list_w_owner.csv', index=False)
+df.to_csv('step_4_work/output/full_retailer_list_w_owner.csv', index=False)
 doc_df.to_csv('output/documentation_links.csv', index=False)

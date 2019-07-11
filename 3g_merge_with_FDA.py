@@ -218,9 +218,38 @@ for i in ['Address Line 1','City','State','Zip']:
     merge_df.loc[merge_df[i+'_update'] == merge_df[i], i+'_changes'] = 'Correct'
     merge_df.loc[merge_df['biz_status'] == "Can't Validate", i+'_changes'] = "Can't Validate"
 
+# add in biz_status, on tribe land original, _changes and _update columns
+merge_df=merge_df.rename({'biz_status':'Business Status_update','On Tribe Land':'On Tribe Land_update'},axis=1)
+ori_df = pd.read_excel('input/Public retail data_original.xlsx',dtype='str')
+ori_df['IMPAQ_ID'] = ori_df.index
+merge_df = merge_df.merge(ori_df[['IMPAQ_ID','Business Status','On Tribe Land']],how='left',on='IMPAQ_ID')
+merge_df['Business Status_changes']=merge_df['Business Status_update']
+merge_df['On Tribe Land_changes']=merge_df['On Tribe Land_update']
+# clean up biz status values
+merge_df['Business Status_update']=merge_df['Business Status_update'].replace('Active','In Operation')
+merge_df['Business Status_changes']=merge_df['Business Status_changes'].replace('Active','In Operation')
+merge_df['Business Status_update']=merge_df['Business Status_update'].replace('Closed','Out of Business')
+merge_df['Business Status_changes']=merge_df['Business Status_changes'].replace('Closed','Out of Business')
+
+# alter the update and changes columns to be consistent with others
+merge_df.loc[merge_df['Business Status']==merge_df['Business Status_update'],
+    'Business Status_changes']='No changes'
+merge_df.loc[merge_df['On Tribe Land']==merge_df['On Tribe Land_update'],
+    'On Tribe Land_changes']='No changes'
+merge_df.loc[merge_df['Business Status_update']=="Can't Validate",
+    'Business Status_changes']="Can't Validate"
+merge_df.loc[merge_df['On Tribe Land_update']=="Can't Validate",
+    'On Tribe Land_changes']="Can't Validate"
+merge_df.loc[merge_df['Business Status_update']=="Can't Validate",
+    'Business Status_update']=merge_df.loc[merge_df['Business Status_update']==
+    "Can't Validate",'Business Status']
+merge_df.loc[merge_df['On Tribe Land_update']=="Can't Validate",
+    'On Tribe Land_update']=merge_df.loc[merge_df['On Tribe Land_update']==
+    "Can't Validate",'On Tribe Land']
+
 # clean up the order of vars
 column_names=['DBA Name','Address Line 1','City','State','Zip',
-	'Latitude','Longitude','Full Address','County']
+	'Latitude','Longitude','Full Address','County','Business Status','On Tribe Land']
 cols =[]
 for i in column_names:
     cols += [i,i+'_changes',i+'_update']
@@ -228,6 +257,7 @@ rest_cols = [i for i in merge_df.columns if i not in cols]
 merge_df = merge_df[cols + rest_cols]
 rest_cols = [i for i in merge_df.columns if i != 'IMPAQ_ID']
 merge_df = merge_df[['IMPAQ_ID']+rest_cols]
+
 # save to CSV
 merge_df.to_csv('step_3_work/output/full_retailer_list_orig.csv', index= False)
 

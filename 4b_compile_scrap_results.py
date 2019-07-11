@@ -121,4 +121,10 @@ full_df.update(wa_df)
 if 'Unnamed: 0' in full_df.columns:
     full_df = full_df.drop('Unnamed: 0', axis =1)
 
+# remove ownership determinations for manual can't validate determinations
+cols = ['entity', 'agent_name', 'agent_address', 'agent_city', 'agent_state',
+    'agent_zip', 'SoS_record', 'Latest Year of Ownership Docs']
+for i in cols:
+    full_df.loc[full_df['Manual Validation Flag']=="Can't validate",i]=''
+
 full_df.to_csv('step_4_work/output/full_retailer_list_w_owner_final.csv', index=False)
